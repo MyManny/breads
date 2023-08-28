@@ -47,14 +47,14 @@ breads.post('/', (req, res) => {
 
 // DELETE
 breads.delete('/:arrayIndex', (req, res) => {
-  Bread.splice(req.params.indexArray, 1)
+  Bread.splice(req.params.arrayIndex, 1)
   res.status(303).redirect('/breads')
 })
 // EDIT
 breads.get('/:arrayIndex/edit', (req, res) => {
   res.render('edit', {
-    bread: Bread[req.params.indexArray],
-    index: req.params.indexArray
+    bread: Bread[req.params.arrayIndex],
+    index: req.params.arrayIndex
   })
 })
 
