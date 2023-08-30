@@ -41,7 +41,8 @@ breads.post('/', (req, res) => {
   } else {
     req.body.hasGluten = false
   }
-  Bread.push(req.body)
+  req.body.image = false
+  Bread.insertMany([req.body])
   res.redirect('/breads')
 })
 
