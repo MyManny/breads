@@ -3,7 +3,7 @@ const Default = require('./layouts/Default')
 
 function Show ({bread, id}) {
     // Confirm we are getting our bread data in the terminal.
-    console.log(index)
+    console.log(id)
       return (
         <Default>
   <h3>{bread.name}</h3>
@@ -17,10 +17,12 @@ function Show ({bread, id}) {
     have gluten.
   </p>
   <img src={bread.image} alt={bread.name} />
-  <a href={`/breads/${id}/edit`}><button>Edit</button></a>
-  <form action={`/breads/${id}?_method=DELETE`} method="POST">
-    <input type='submit' value="DELETE"/>
-  </form>
+  <p>Baked by {bread.baker}</p>
+  <a href={`/breads/${bread.id}/edit`}><button>Edit</button></a>
+  <form action={`/breads/${bread.id}?_method=delete`} method="POST">
+  <input type='submit' value="delete"/>
+</form>
+
 
   <li><a href="/breads">Go home</a></li>
 </Default>
