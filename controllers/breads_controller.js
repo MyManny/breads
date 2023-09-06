@@ -13,7 +13,27 @@ breads.get('/', (req, res) => {
           })
       })
 })
-
+//better format beneath missing title
+// Bread
+//         .find()
+//         .then(function(breads) {
+//             res.render(
+//                 'Index',
+//                 {
+//                     breads: breads,
+//                 }
+//             )
+//         })
+// Bread
+//         .getAllBakedBy("Ross")
+//         .then(function(breads) {
+//             res.render(
+//                 'Index',
+//                 {
+//                     breads: breads,
+//                 }
+//             )
+//         })})
 
 // NEW
 breads.get('/new', (req, res) => {
