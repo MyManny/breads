@@ -9,15 +9,18 @@ const breadSchema = new Schema({
     hasGluten: Boolean,
     image: { type: String, default: 'http://placehold.it/500x500.png' },
     baker: {
-      type: String,
-      enum: ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe']
+      type: Schema.Types.ObjectId,
+      ref: 'Baker'
     } 
 })
+ 
+//instance method 
 // helper methods 
-//instance method
 breadSchema.methods.getBakedBy = function(){
-  return `${this.name} was baked with love by ${this.baker}`
+  return `${this.name} was baked with love by ${this.baker.name}, who has been with us since ${this.baker.startDate.getFullYear()}`
 }
+
+
 //static
 breadSchema.statics.getAllBakedBy = function(bakerName){
   return this.find({baker: bakerName})

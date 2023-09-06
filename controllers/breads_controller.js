@@ -2,6 +2,7 @@ const express = require('express')
 const breads = express.Router()
 const Bread = require('../models/bread.js')
 const breadSeed = require('../seeds/bread-seed.js')
+const Baker = require('../models/baker.js')
 
 // INDEX
 breads.get('/', (req, res) => {
@@ -13,7 +14,7 @@ breads.get('/', (req, res) => {
           })
       })
 })
-//better format beneath missing title
+//better format beneath but missing title
 // Bread
 //         .find()
 //         .then(function(breads) {
@@ -35,9 +36,14 @@ breads.get('/', (req, res) => {
 //             )
 //         })})
 
-// NEW
+// in the new route
 breads.get('/new', (req, res) => {
-  res.render('new')
+    Baker.find()
+        .then(foundBakers => {
+            res.render('new', {
+                bakers: foundBakers
+            })
+      })
 })
 
 // SHOW
@@ -45,6 +51,7 @@ breads.get('/:id', (req, res) => {
   if (req.params.id) {
       Bread
           .findById(req.params.id)
+          .populate("baker")
           .then(bread => {
               res.render(
                   'Show',
@@ -100,17 +107,26 @@ breads.delete('/:id', (req, res) => {
 
 // EDIT
 breads.get('/:id/edit', (req, res) => {
-  if (req.params.id) {
-  Bread.findById(req.params.id) 
-    .then(foundBread => { 
-      res.render('edit', {
-        bread: foundBread 
-      })
-    })
-  } else {
-    res.render('NotFound')
-  }
-  })
+  Baker
+      .find()
+      .then(foundBakers =>{
+        if (req.params.id) {
+        Bread
+        .findById(req.params.id) 
+        .populate("baker")
+          .then(bread => { 
+            res.render(
+              'edit',
+             {
+              bread: bread,
+              bakers: foundBakers 
+            })
+          })
+        } else {
+          res.render('NotFound')
+        }
+        })})
+  
 
 
 
