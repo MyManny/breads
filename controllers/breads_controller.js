@@ -4,16 +4,21 @@ const Bread = require('../models/bread.js')
 const breadSeed = require('../seeds/bread-seed.js')
 const Baker = require('../models/baker.js')
 
-// INDEX
+/// Index:
 breads.get('/', (req, res) => {
-  Bread.find()
+  Baker.find()
+    .then(foundBakers => {
+      Bread.find()
       .then(foundBreads => {
           res.render('index', {
               breads: foundBreads,
+              bakers: foundBakers,
               title: 'Index Page'
           })
       })
+    })
 })
+
 //better format beneath but missing title
 // Bread
 //         .find()
